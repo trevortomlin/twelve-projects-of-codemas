@@ -8,6 +8,9 @@ edition = "2021"
 [dependencies]
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.3"
+defmt = "0.3.5"
+defmt-serial = "0.7.0"
 embedded-hal = "0.2.7"
+fugit = { version = "0.3.7", features = ["defmt"] }
 panic-halt = "0.2.0"
 rp-pico = "0.8.0"
