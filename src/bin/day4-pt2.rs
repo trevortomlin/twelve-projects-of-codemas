@@ -1,20 +1,20 @@
 #![no_std]
 #![no_main]
 
+use defmt_serial as _;
 use embedded_hal::adc::OneShot;
 use embedded_hal::digital::v2::InputPin;
-use rp_pico::entry;
 use embedded_hal::digital::v2::OutputPin;
+use embedded_hal::PwmPin;
 use panic_halt as _;
-use rp_pico::hal::Adc;
-use rp_pico::hal::adc::AdcPin;
-use rp_pico::hal::prelude::*;
-use rp_pico::hal::pac;
+use rp_pico::entry;
 use rp_pico::hal;
-use defmt_serial as _;
+use rp_pico::hal::adc::AdcPin;
+use rp_pico::hal::pac;
+use rp_pico::hal::prelude::*;
 use rp_pico::hal::pwm::InputHighRunning;
 use rp_pico::hal::pwm::Slices;
-use embedded_hal::PwmPin;
+use rp_pico::hal::Adc;
 
 #[entry]
 fn main() -> ! {
@@ -46,7 +46,7 @@ fn main() -> ! {
         &mut pac.RESETS,
     );
 
-    let pwm_slices =  &mut Slices::new(pac.PWM, &mut pac.RESETS);
+    let pwm_slices = &mut Slices::new(pac.PWM, &mut pac.RESETS);
 
     let pwm = &mut pwm_slices.pwm1;
     pwm.set_ph_correct();
@@ -58,13 +58,12 @@ fn main() -> ! {
     let mut adc = Adc::new(pac.ADC, &mut pac.RESETS);
 
     let mut adc_pin = AdcPin::new(pins.gpio27.into_floating_input());
-    
+
     loop {
         let val: u16 = adc.read(&mut adc_pin).unwrap_or(0);
 
         channel.set_duty(val * 5);
 
         delay.delay_ms(100);
-
     }
 }

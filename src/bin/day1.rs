@@ -1,4 +1,4 @@
-//! # Pico Blinky Example 
+//! # Pico Blinky Example
 //! https://github.com/rp-rs/rp-hal-boards/blob/main/boards/rp-pico/examples/pico_blinky.rs
 //!
 //! Blinks the LED on a Pico board.
@@ -9,12 +9,12 @@
 #![no_std]
 #![no_main]
 
-use rp_pico::entry;
 use embedded_hal::digital::v2::OutputPin;
 use panic_halt as _;
-use rp_pico::hal::prelude::*;
-use rp_pico::hal::pac;
+use rp_pico::entry;
 use rp_pico::hal;
+use rp_pico::hal::pac;
+use rp_pico::hal::prelude::*;
 
 #[entry]
 fn main() -> ! {

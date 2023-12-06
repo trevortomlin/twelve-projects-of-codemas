@@ -1,17 +1,17 @@
 #![no_std]
 #![no_main]
 
+use defmt_serial as _;
 use embedded_hal::adc::OneShot;
 use embedded_hal::digital::v2::InputPin;
-use rp_pico::entry;
 use embedded_hal::digital::v2::OutputPin;
 use panic_halt as _;
-use rp_pico::hal::Adc;
-use rp_pico::hal::adc::AdcPin;
-use rp_pico::hal::prelude::*;
-use rp_pico::hal::pac;
+use rp_pico::entry;
 use rp_pico::hal;
-use defmt_serial as _;
+use rp_pico::hal::adc::AdcPin;
+use rp_pico::hal::pac;
+use rp_pico::hal::prelude::*;
+use rp_pico::hal::Adc;
 
 #[entry]
 fn main() -> ! {
@@ -50,7 +50,7 @@ fn main() -> ! {
     let mut led_pin3 = pins.gpio20.into_push_pull_output();
 
     let mut adc_pin = AdcPin::new(pins.gpio27.into_floating_input());
-    
+
     loop {
         let val: u16 = adc.read(&mut adc_pin).unwrap_or(0);
 
@@ -73,6 +73,5 @@ fn main() -> ! {
         };
 
         delay.delay_ms(100);
-
     }
 }

@@ -2,12 +2,12 @@
 #![no_main]
 
 use embedded_hal::digital::v2::InputPin;
-use rp_pico::entry;
 use embedded_hal::digital::v2::OutputPin;
 use panic_halt as _;
-use rp_pico::hal::prelude::*;
-use rp_pico::hal::pac;
+use rp_pico::entry;
 use rp_pico::hal;
+use rp_pico::hal::pac;
+use rp_pico::hal::prelude::*;
 
 #[entry]
 fn main() -> ! {
@@ -43,13 +43,11 @@ fn main() -> ! {
     let mut led_pin2 = pins.gpio19.into_push_pull_output();
     let mut led_pin3 = pins.gpio20.into_push_pull_output();
 
-    
     let button1 = pins.gpio13.into_pull_down_input();
     let button2 = pins.gpio12.into_pull_down_input();
     let button3 = pins.gpio11.into_pull_down_input();
-    
-    loop {
 
+    loop {
         if button1.is_high().unwrap() {
             led_pin.set_high().unwrap()
         }
@@ -65,6 +63,5 @@ fn main() -> ! {
         led_pin.set_low().unwrap();
         led_pin2.set_low().unwrap();
         led_pin3.set_low().unwrap();
-
     }
 }
